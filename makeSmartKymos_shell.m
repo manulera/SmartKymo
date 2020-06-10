@@ -8,7 +8,8 @@ all_folders = all_folders(~empty_ones);
 for i = 1:numel(all_folders)
     folder = all_folders{i};
     mat_file = [folder filesep 'smartkymo.mat'];
-    if isfile(mat_file)
+    
+    if exist(mat_file,'file')==2
         continue
     end
     
