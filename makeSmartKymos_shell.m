@@ -1,8 +1,5 @@
-[~,out] = system('find . -name "bundle_??"');
-
-all_folders = strsplit(out);
-empty_ones = cellfun('isempty',all_folders);
-all_folders = all_folders(~empty_ones);
+found = dir(fullfile(uigetdir(), ['**' filesep 'bundle_mask.tif']));
+all_folders = {found.folder};
 
 
 for i = 1:numel(all_folders)
@@ -10,9 +7,11 @@ for i = 1:numel(all_folders)
     mat_file = [folder filesep 'smartkymo.mat'];
     
     if exist(mat_file,'file')==2
+        fprintf("* Skipped: %s\n",folder)
         continue
     end
-    
+    fprintf("> Making kymo: %s\n", folder)
+    fprintf("done\n", folder)
     movie  = readTiffStack([folder filesep '..' filesep 'movie.tif']);
     mask  = readTiffStack([folder filesep 'bundle_mask.tif'])==0;
     [ kymo,kymo_x,kymo_y ] = smartKymoMask( movie,mask );
