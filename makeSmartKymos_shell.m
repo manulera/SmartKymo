@@ -3,6 +3,7 @@ all_folders = {found.folder};
 
 
 for i = 1:numel(all_folders)
+    
     folder = all_folders{i};
     mat_file = [folder filesep 'smartkymo.mat'];
     
